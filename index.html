@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotionCraft Client Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A6CF7;
+            --primary-dark: #3A57D4;
+            --primary-light: #6A8BFF;
+            --secondary: #38B2AC;
+            --dark: #2D3748;
+            --darker: #1A202C;
+            --light: #F7FAFC;
+            --lighter: #EDF2F7;
+            --gray: #718096;
+            --danger: #E53E3E;
+            --warning: #DD6B20;
+            --success: #38A169;
+            --info: #3182CE;
+            
+            --gradient-start: #4A6CF7;
+            --gradient-end: #6A8BFF;
+            
+            --card-bg: #FFFFFF;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #F7FAFC, #EDF2F7);
+            color: var(--darker);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem 0;
+            box-shadow: 0 4px 12px rgba(74, 108, 247, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 3rem 0;
+        }
+
+        .welcome-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: 1px solid var(--lighter);
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .welcome-section p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: 1px solid var(--lighter);
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .search-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .search-section p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .search-container {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 5px 20px rgba(74, 108, 247, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .search-container:focus-within {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(74, 108, 247, 0.2);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--lighter);
+            background: var(--light);
+            color: var(--dark);
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--gray);
+            opacity: 0.7;
+        }
+
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Client Cards */
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .client-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid var(--lighter);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .client-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .client-header {
+            padding: 1.8rem;
+            border-bottom: 1px solid var(--lighter);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--light);
+        }
+
+        .client-name {
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: var(--dark);
+        }
+
+        .project-id {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: rgba(74, 108, 247, 0.1);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+        }
+
+        .client-body {
+            padding: 1.8rem;
+        }
+
+        .status-list {
+            list-style: none;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--lighter);
+            transition: all 0.3s ease;
+        }
+
+        .status-item:hover {
+            background: var(--light);
+            padding-left: 10px;
+            border-radius: 8px;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            background: var(--light);
+        }
+
+        .status-details {
+            flex-grow: 1;
+        }
+
+        .status-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: var(--dark);
+        }
+
+        .status-value {
+            font-size: 0.95rem;
+            color: var(--gray);
+        }
+
+        .status-badge {
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .completed {
+            background-color: rgba(56, 161, 105, 0.15);
+            color: var(--success);
+        }
+
+        .in-progress {
+            background-color: rgba(49, 130, 206, 0.15);
+            color: var(--info);
+        }
+
+        .pending {
+            background-color: rgba(221, 107, 32, 0.15);
+            color: var(--warning);
+        }
+
+        .upcoming {
+            background-color: rgba(113, 128, 150, 0.15);
+            color: var(--gray);
+        }
+
+        .delivery-section {
+            padding: 1.5rem 1.8rem;
+            border-top: 1px solid var(--lighter);
+            background: var(--light);
+        }
+
+        .delivery-title {
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .delivery-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .delivery-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: var(--lighter);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .delivery-link:hover {
+            background: rgba(74, 108, 247, 0.1);
+            transform: translateX(5px);
+            border-color: var(--primary-light);
+        }
+
+        .link-icon {
+            margin-right: 1rem;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        .link-text {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .link-arrow {
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .delivery-link:hover .link-arrow {
+            transform: translateX(5px);
+        }
+
+        .client-footer {
+            padding: 1.5rem 1.8rem;
+            background: var(--light);
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid var(--lighter);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.2);
+        }
+
+        /* Revision Section */
+        .revision-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--lighter);
+            transform: translateY(20px);
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        .revision-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .revision-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group textarea {
+            padding: 1rem;
+            border: 1px solid var(--lighter);
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 150px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .submit-btn {
+            background: var(--success);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: #2F855A;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 161, 105, 0.2);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error-message {
+            color: var(--danger);
+            margin-top: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+            padding: 1rem;
+            background: rgba(229, 62, 62, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(229, 62, 62, 0.2);
+        }
+
+        .success-message {
+            color: var(--success);
+            margin-top: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+            padding: 1rem;
+            background: rgba(56, 161, 105, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(56, 161, 105, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2.5rem 0;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copyright {
+            color: var(--lighter);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--lighter);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                border-radius: 12px 12px 0 0;
+            }
+            
+            .search-btn {
+                border-radius: 0 0 12px 12px;
+                padding: 1rem;
+            }
+            
+            .clients-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .welcome-section h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-film"></i>
+                    <span>MotionCraft</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="main-content">
+            <div class="welcome-section">
+                <h1>Your Creative Journey <span class="highlight">Simplified</span></h1>
+                <p>Welcome to your personalized project dashboard. We're crafting something extraordinary together, and here you can track every step of our creative process in real-time.</p>
+            </div>
+
+            <div class="search-section">
+                <h2>Access Your Project</h2>
+                <p>Enter your unique client code to unlock your project's status, assets, and deliverables</p>
+                <div class="search-container">
+                    <input type="text" class="search-input" id="clientCodeInput" placeholder="Enter your client code (e.g. MC-4821)">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i> Unlock Project
+                    </button>
+                </div>
+                <div id="errorMessage" class="error-message hidden"></div>
+            </div>
+
+            <div id="clientContainer" class="hidden">
+                <!-- Client content will be inserted here dynamically -->
+            </div>
+
+            <div id="revisionContainer" class="revision-section hidden">
+                <h2>Request Revisions</h2>
+                <p class="text-center" style="color: var(--gray); margin-bottom: 2rem;">Not completely satisfied? Share your feedback and we'll make it right.</p>
+                <form class="revision-form" id="revisionForm">
+                    <div class="form-group">
+                        <label for="clientName">Your Name</label>
+                        <input type="text" id="clientName" class="search-input" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="revisionDetails">Revision Details</label>
+                        <textarea id="revisionDetails" placeholder="Please provide specific details about what you'd like us to revise..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fab fa-whatsapp"></i> Submit via WhatsApp
+                    </button>
+                </form>
+                <div id="revisionMessage" class="hidden"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright">
+                    &copy; 2023 MotionCraft. Crafting digital excellence.
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Project data with Google Drive/Docs links
+        const projects = {
+            "MC-4821": {
+                name: "NexTech Solutions",
+                id: "MC-4821",
+                status: [
+                    { title: "Script Writing", value: "Completed on Aug 12, 2023", icon: "✅", status: "completed" },
+                    { title: "Video Editing", value: "Expected completion: Aug 25, 2023", icon: "🎬", status: "in-progress" },
+                    { title: "Client Feedback", value: "Awaiting your valuable input", icon: "💬", status: "pending" },
+                    { title: "Final Delivery", value: "Scheduled for Sep 5, 2023", icon: "🚀", status: "upcoming" }
+                ],
+                deliveryLinks: [
+                    { text: "Storyboard PDF", url: "https://docs.google.com/document/d/1XQa-ZRn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKs/preview", icon: "📄" },
+                    { text: "Script Document", url: "https://docs.google.com/document/d/1YQb-ZSn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKt/preview", icon: "📝" },
+                    { text: "Preview Video", url: "https://drive.google.com/file/d/1ZQc-ZTn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKu/preview", icon: "🎥" },
+                    { text: "Raw Footage (Available after editing)", url: "#", icon: "📦", disabled: true }
+                ]
+            },
+            "MC-4756": {
+                name: "EcoLife Brands",
+                id: "MC-4756",
+                status: [
+                    { title: "Script Writing", value: "Completed on Jul 28, 2023", icon: "✅", status: "completed" },
+                    { title: "Video Editing", value: "Completed on Aug 15, 2023", icon: "✅", status: "completed" },
+                    { title: "Client Feedback", value: "Revision in progress", icon: "🔄", status: "in-progress" },
+                    { title: "Final Delivery", value: "Scheduled for Aug 30, 2023", icon: "📅", status: "upcoming" }
+                ],
+                deliveryLinks: [
+                    { text: "Initial Concepts", url: "https://docs.google.com/document/d/1AQd-ZUn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKv/preview", icon: "💡" },
+                    { text: "Script Final", url: "https://docs.google.com/document/d/1BQe-ZVn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKw/preview", icon: "📝" },
+                    { text: "Animation Preview", url: "https://drive.google.com/file/d/1CQf-ZWn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKx/preview", icon: "✨" }
+                ]
+            },
+
+
+"MC-7676666": {
+                name: "hasib bhai demo dekhbo",
+                id: "MC-7676666",
+                status: [
+                    { title: "Script Writing", value: "Completed on Jul 28, 2023", icon: "✅", status: "completed" },
+                    { title: "Video Editing", value: "Completed on Aug 15, 2023", icon: "✅", status: "completed" },
+                    { title: "Client Feedback", value: "Revision in progress", icon: "🔄", status: "in-progress" },
+                    { title: "Final Delivery", value: "Scheduled for Aug 30, 2023", icon: "📅", status: "upcoming" }
+                ],
+                deliveryLinks: [
+                    { text: "Initial Concepts", url: "https://docs.google.com/document/d/1AQd-ZUn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKv/preview", icon: "💡" },
+                    { text: "Script Final", url: "https://docs.google.com/document/d/1BQe-ZVn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKw/preview", icon: "📝" },
+                    { text: "Animation Preview", url: "https://drive.google.com/file/d/1CQf-ZWn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKx/preview", icon: "✨" }
+                ]
+            },
+
+
+
+
+
+
+
+
+            
+            "MC-4902": {
+                name: "UrbanFit Gym",
+                id: "MC-4902",
+                status: [
+                    { title: "Script Writing", value: "Completed on Aug 5, 2023", icon: "✅", status: "completed" },
+                    { title: "Video Editing", value: "Completed on Aug 18, 2023", icon: "✅", status: "completed" },
+                    { title: "Client Feedback", value: "Approved on Aug 20, 2023", icon: "✅", status: "completed" },
+                    { title: "Final Delivery", value: "Preparing delivery package", icon: "📦", status: "in-progress" }
+                ],
+                deliveryLinks: [
+                    { text: "Final Video", url: "https://drive.google.com/file/d/1DQg-ZXn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKy/preview", icon: "🎬" },
+                    { text: "Social Media Clips", url: "https://drive.google.com/file/d/1EQh-ZYn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rKz/preview", icon: "📱" },
+                    { text: "Project Assets", url: "https://drive.google.com/drive/folders/1FQi-ZZn2zO8wv1l3vLkH4Zqo9mB7cNdYyWbVpJq6rK0", icon: "💾" }
+                ]
+            }
+        };
+
+        // DOM elements
+        const clientCodeInput = document.getElementById('clientCodeInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const clientContainer = document.getElementById('clientContainer');
+        const revisionContainer = document.getElementById('revisionContainer');
+        const revisionForm = document.getElementById('revisionForm');
+        const revisionMessage = document.getElementById('revisionMessage');
+        let currentProjectId = '';
+
+        // Search functionality
+        searchBtn.addEventListener('click', searchProject);
+        clientCodeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchProject();
+            }
+        });
+
+        // Revision form submission
+        revisionForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitRevision();
+        });
+
+        function searchProject() {
+            const clientCode = clientCodeInput.value.trim().toUpperCase();
+            
+            // Reset previous state
+            errorMessage.classList.add('hidden');
+            clientContainer.classList.add('hidden');
+            revisionContainer.classList.add('hidden');
+            
+            if (!clientCode) {
+                showError('Please enter a client code to continue');
+                return;
+            }
+            
+            if (projects[clientCode]) {
+                currentProjectId = clientCode;
+                displayProject(projects[clientCode]);
+                revisionContainer.classList.remove('hidden');
+            } else {
+                showError('Client code not found. Please check your code and try again.');
+            }
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('hidden');
+            
+            // Add animation to error message
+            errorMessage.classList.add('pulse');
+            setTimeout(() => {
+                errorMessage.classList.remove('pulse');
+            }, 1000);
+        }
+
+        function showSuccess(message) {
+            revisionMessage.textContent = message;
+            revisionMessage.classList.remove('hidden');
+            revisionMessage.classList.add('success-message');
+            
+            // Add animation to success message
+            revisionMessage.classList.add('pulse');
+            setTimeout(() => {
+                revisionMessage.classList.remove('pulse');
+            }, 1000);
+        }
+
+        function displayProject(project) {
+            clientContainer.innerHTML = '';
+            clientContainer.classList.remove('hidden');
+            
+            // Create project card
+            const projectCard = document.createElement('div');
+            projectCard.className = 'client-card';
+            
+            // Create header
+            const header = document.createElement('div');
+            header.className = 'client-header';
+            header.innerHTML = `
+                <div class="client-name">${project.name}</div>
+                <div class="project-id">${project.id}</div>
+            `;
+            
+            // Create body with status
+            const body = document.createElement('div');
+            body.className = 'client-body';
+            
+            const statusList = document.createElement('ul');
+            statusList.className = 'status-list';
+            
+            project.status.forEach(item => {
+                const statusItem = document.createElement('li');
+                statusItem.className = 'status-item';
+                statusItem.innerHTML = `
+                    <div class="status-icon ${item.status}">${item.icon}</div>
+                    <div class="status-details">
+                        <div class="status-title">${item.title}</div>
+                        <div class="status-value">${item.value}</div>
+                    </div>
+                    <span class="status-badge ${item.status}">${item.status.replace('-', ' ')}</span>
+                `;
+                statusList.appendChild(statusItem);
+            });
+            
+            body.appendChild(statusList);
+            
+            // Create delivery section
+            const deliverySection = document.createElement('div');
+            deliverySection.className = 'delivery-section';
+            deliverySection.innerHTML = '<div class="delivery-title">Your Project Assets</div>';
+            
+            const deliveryLinks = document.createElement('div');
+            deliveryLinks.className = 'delivery-links';
+            
+            project.deliveryLinks.forEach(link => {
+                const linkElement = document.createElement('a');
+                linkElement.href = link.disabled ? 'javascript:void(0)' : link.url;
+                linkElement.className = `delivery-link ${link.disabled ? 'disabled' : ''}`;
+                linkElement.target = "_blank";
+                linkElement.innerHTML = `
+                    <span class="link-icon">${link.icon}</span>
+                    <span class="link-text">${link.text}</span>
+                    <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+                `;
+                
+                if (link.disabled) {
+                    linkElement.style.opacity = '0.6';
+                    linkElement.style.cursor = 'not-allowed';
+                }
+                
+                deliveryLinks.appendChild(linkElement);
+            });
+            
+            deliverySection.appendChild(deliveryLinks);
+            
+            // Create footer
+            const footer = document.createElement('div');
+            footer.className = 'client-footer';
+            footer.innerHTML = '<button class="btn btn-primary contact-support"><i class="fas fa-headset"></i> Contact Support</button>';
+            
+            // Assemble the card
+            projectCard.appendChild(header);
+            projectCard.appendChild(body);
+            projectCard.appendChild(deliverySection);
+            projectCard.appendChild(footer);
+            
+            // Add to container
+            clientContainer.appendChild(projectCard);
+            
+            // Add event listener to support button
+            document.querySelector('.contact-support').addEventListener('click', function() {
+                alert(`We'll connect you with our support team for project ${project.id}`);
+            });
+            
+            // Animate card entrance
+            setTimeout(() => {
+                projectCard.style.opacity = 1;
+                projectCard.style.transform = 'translateY(0)';
+            }, 100);
+        }
+        
+        function submitRevision() {
+            const clientName = document.getElementById('clientName').value;
+            const revisionDetails = document.getElementById('revisionDetails').value;
+            
+            if (!clientName || !revisionDetails) {
+                showError('Please fill in all fields');
+                return;
+            }
+            
+            // Format WhatsApp message
+            const message = `Revision Request from ${clientName} for Project ${currentProjectId}: ${revisionDetails}`;
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Open WhatsApp with the message
+            window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+            
+            // Show success message
+            showSuccess('Revision request submitted successfully! We will contact you shortly.');
+            
+            // Clear the form
+            revisionForm.reset();
+        }
+        
+        // Add initial animation to page elements
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.querySelector('.welcome-section').style.opacity = 1;
+                document.querySelector('.welcome-section').style.transform = 'translateY(0)';
+            }, 300);
+            
+            setTimeout(() => {
+                document.querySelector('.search-section').style.opacity = 1;
+                document.querySelector('.search-section').style.transform = 'translateY(0)';
+            }, 600);
+        });
+    </script>
+</body>
+</html>
