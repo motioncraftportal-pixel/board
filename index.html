@@ -1,498 +1,190 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook Ad Analysis Tool - Real Data</title>
+    <title>Your Content is Ready</title>
     <style>
-        :root {
-            --primary-color: #1877f2;
-            --secondary-color: #42b883;
-            --dark-color: #1a1a1a;
-            --light-color: #f5f6f8;
-            --danger-color: #ff5252;
-            --success-color: #4caf50;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #f0f2f5;
-            color: var(--dark-color);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: white;
+            color: #222;
             line-height: 1.6;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            border-radius: 0 0 20px 20px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        input, select, textarea {
+            max-width: 500px;
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
         }
         
-        button {
-            background-color: var(--primary-color);
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .logo span {
+            color: gold;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin: 20px 0 10px;
+        }
+        
+        .client-name {
+            color: #0066cc;
+            font-weight: bold;
+        }
+        
+        .tagline {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .drive-button {
+            display: block;
+            width: 100%;
+            padding: 25px;
+            background: #111;
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background-color 0.3s;
-        }
-        
-        button:hover {
-            background-color: #0e5a9d;
-        }
-        
-        .results {
-            display: none;
-            margin-top: 2rem;
-        }
-        
-        .ad-card {
-            border-left: 4px solid var(--primary-color);
-            margin-bottom: 1rem;
-            transition: transform 0.2s;
-        }
-        
-        .ad-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .stat-box {
-            flex: 1;
-            min-width: 200px;
-            background: var(--light-color);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 1.8rem;
+            border-radius: 12px;
+            font-size: 22px;
             font-weight: bold;
-            color: var(--primary-color);
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        .positive {
-            color: var(--success-color);
-        }
-        
-        .negative {
-            color: var(--danger-color);
-        }
-        
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--primary-color);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-            display: none;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding: 1.5rem;
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .ad-link {
-            color: var(--primary-color);
+            cursor: pointer;
+            margin: 30px 0;
             text-decoration: none;
-            font-weight: 600;
         }
         
-        .ad-link:hover {
-            text-decoration: underline;
+        .drive-button:hover {
+            background: #333;
         }
         
-        @media (max-width: 768px) {
-            .stats {
-                flex-direction: column;
-            }
-            
-            .stat-box {
-                min-width: 100%;
-            }
+        .details-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+            text-decoration: none;
+        }
+        
+        .details {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+            text-align: left;
+            display: none;
+            border: 1px solid #eee;
+        }
+        
+        .details h3 {
+            margin: 20px 0 10px;
+            color: #111;
+        }
+        
+        .details ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .logo { font-size: 28px; }
+            h1 { font-size: 22px; }
+            .drive-button { font-size: 20px; padding: 20px; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Facebook Ad Analysis Tool - Real Data</h1>
-            <p>Facebook Graph API ব্যবহার করে বাস্তব ডেটা বিশ্লেষণ করুন এবং পোস্ট লিংকসহ রিপোর্ট পান</p>
-        </div>
-    </header>
-
     <div class="container">
-        <div class="card">
-            <h2>Ad Analysis সেটআপ</h2>
-            <p>আপনি কোন বিষয়ের উপর Ads বিশ্লেষণ করতে চান? (যেমন: "শপিং মল", "মোবাইল ফোন", "অনলাইন কোর্স")</p>
+        <div class="logo">Motion<span>craft</span></div>
+        <h1>Welcome <span class="client-name">[Client Name]</span></h1>
+        <p class="tagline">Your content is ready for delivery</p>
+        
+        <!-- Main button that redirects to Google Drive -->
+        <a href="YOUR_MAIN_DRIVE_FOLDER_LINK" target="_blank" class="drive-button">
+            📁 ACCESS YOUR CONTENT FILES
+        </a>
+        
+        <p>Click above to access all your files on Google Drive</p>
+        
+        <button id="showDetails" class="details-button">
+            📋 View Project Details
+        </button>
+        
+        <!-- Hidden details section -->
+        <div id="details" class="details">
+            <h3>📋 Project Details</h3>
+            <p><strong>Delivered:</strong> Final videos, thumbnails, source files</p>
+            <p><strong>Location:</strong> Google Drive folder (link above)</p>
             
-            <div class="form-group">
-                <label for="accessToken">Facebook Access Token:</label>
-                <input type="text" id="accessToken" placeholder="আপনার Facebook Access Token লিখুন">
-                <small>এটি পেতে: https://developers.facebook.com/tools/explorer/ ভিজিট করুন</small>
-            </div>
+            <h3>💰 Invoice Details</h3>
+            <p><strong>Invoice #:</strong> MC-2024-001</p>
+            <p><strong>Amount:</strong> $2,500.00</p>
+            <p><strong>Status:</strong> Payment received / Pending</p>
             
-            <div class="form-group">
-                <label for="searchTerm">বিষয় বা কীওয়ার্ড লিখুন:</label>
-                <input type="text" id="searchTerm" placeholder="উদাহরণ: অনলাইন শপিং, রেস্টুরেন্ট">
-            </div>
+            <h3>📞 Contact</h3>
+            <p><strong>Project Manager:</strong> Alex Johnson</p>
+            <p><strong>Email:</strong> alex@motioncraft.com</p>
+            <p><strong>Support:</strong> 24 hour response time</p>
             
-            <div class="form-group">
-                <label for="country">দেশ নির্বাচন করুন:</label>
-                <select id="country">
-                    <option value="BD">Bangladesh</option>
-                    <option value="US">United States</option>
-                    <option value="UK">United Kingdom</option>
-                    <option value="IN">India</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="limit">কতগুলো Ads বিশ্লেষণ করতে চান:</label>
-                <select id="limit">
-                    <option value="10">10 Ads</option>
-                    <option value="20" selected>20 Ads</option>
-                    <option value="30">30 Ads</option>
-                    <option value="50">50 Ads</option>
-                </select>
-            </div>
-            
-            <button id="analyzeBtn">Ads বিশ্লেষণ শুরু করুন</button>
+            <button id="hideDetails" class="details-button" style="background: #999;">
+                Close Details
+            </button>
         </div>
-
-        <div class="loader" id="loader"></div>
-
-        <div class="results" id="results">
-            <div class="card">
-                <h2>বিশ্লেষণ ফলাফল</h2>
-                <p id="searchInfo"></p>
-                
-                <div class="stats">
-                    <div class="stat-box">
-                        <div class="stat-value" id="totalAds">0</div>
-                        <div class="stat-label">মোট Ads</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value" id="avgImpressions">0</div>
-                        <div class="stat-label">গড় ইম্প্রেশন</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value" id="avgDuration">0</div>
-                        <div class="stat-label">গড় সময় (দিন)</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value" id="avgSentiment">0</div>
-                        <div class="stat-label">গড় সেন্টিমেন্ট</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2>সেরা পারফর্মিং Ads</h2>
-                <div id="topAds"></div>
-            </div>
-            
-            <div class="card">
-                <h2>বিশ্লেষণ ও সুপারিশ</h2>
-                <div id="insights"></div>
-            </div>
-            
-            <div class="card">
-                <h2>রaw ডেটা</h2>
-                <pre id="rawData"></pre>
-            </div>
+        
+        <div class="footer">
+            <p>Motioncraft Content Lab © 2026</p>
+            <p>Premium content delivery</p>
         </div>
     </div>
-
-    <footer>
-        <div class="container">
-            <p>Facebook Ad Analysis Tool - আপনার ডিজিটাল মার্কেটিং সহকারী</p>
-            <p>© ২০২৩ - সকল অধিকার সংরক্ষিত</p>
-        </div>
-    </footer>
-
+    
     <script>
-        document.getElementById('analyzeBtn').addEventListener('click', async function() {
-            const accessToken = document.getElementById('accessToken').value;
-            const searchTerm = document.getElementById('searchTerm').value;
-            const country = document.getElementById('country').value;
-            const limit = document.getElementById('limit').value;
-            
-            if (!accessToken) {
-                alert('দয়া করে আপনার Facebook Access Token লিখুন');
-                return;
-            }
-            
-            if (!searchTerm) {
-                alert('দয়া করে একটি বিষয় বা কীওয়ার্ড লিখুন');
-                return;
-            }
-            
-            // লোডার দেখানো
-            document.getElementById('loader').style.display = 'block';
-            document.getElementById('results').style.display = 'none';
-            
-            try {
-                // Facebook Graph API থেকে ডেটা ফেচ করা
-                const adData = await fetchFacebookAds(accessToken, searchTerm, country, limit);
-                
-                // ডেটা বিশ্লেষণ
-                analyzeData(adData, searchTerm, limit);
-            } catch (error) {
-                console.error('Error:', error);
-                alert('ডেটা ফেচ করতে সমস্যা হয়েছে: ' + error.message);
-                document.getElementById('loader').style.display = 'none';
-            }
+        // Simple script to show/hide details
+        document.getElementById('showDetails').addEventListener('click', function() {
+            document.getElementById('details').style.display = 'block';
+            this.style.display = 'none';
         });
         
-        async function fetchFacebookAds(accessToken, searchTerm, country, limit) {
-            const fields = 'id,ad_creative_body,ad_creative_link_title,ad_creative_link_description,impressions,ad_delivery_start_time,ad_delivery_stop_time,currency,page_name,page_id,ad_snapshot_url';
-            const url = `https://graph.facebook.com/v19.0/ads_archive?access_token=${accessToken}&ad_reached_countries=${country}&search_terms=${encodeURIComponent(searchTerm)}&fields=${fields}&limit=${limit}`;
-            
-            const response = await fetch(url);
-            
-            if (!response.ok) {
-                throw new Error(`Facebook API error: ${response.status} ${response.statusText}`);
-            }
-            
-            const data = await response.json();
-            return data;
-        }
+        document.getElementById('hideDetails').addEventListener('click', function() {
+            document.getElementById('details').style.display = 'none';
+            document.getElementById('showDetails').style.display = 'block';
+        });
         
-        function analyzeData(adData, searchTerm, limit) {
-            // লোডার লুকানো
-            document.getElementById('loader').style.display = 'none';
-            
-            // রেজাল্ট দেখানো
-            document.getElementById('results').style.display = 'block';
-            document.getElementById('searchInfo').textContent = `"${searchTerm}" এর উপর ${adData.data.length}টি Ads বিশ্লেষণ করা হয়েছে`;
-            
-            // Raw ডেটা দেখানো
-            document.getElementById('rawData').textContent = JSON.stringify(adData, null, 2);
-            
-            // স্ট্যাটিস্টিক্স ক্যালকুলেশন
-            let totalImpressions = 0;
-            let totalDuration = 0;
-            let totalSentiment = 0;
-            let validAds = 0;
-            
-            const analyzedAds = adData.data.map(ad => {
-                const impressions = ad.impressions ? parseInt(ad.impressions.lower_bound || '0') : 0;
-                const startTime = new Date(ad.ad_delivery_start_time);
-                const endTime = ad.ad_delivery_stop_time ? new Date(ad.ad_delivery_stop_time) : new Date();
-                const durationDays = Math.round((endTime - startTime) / (1000 * 60 * 60 * 24));
-                
-                // সেন্টিমেন্ট অ্যানালাইসিস (সরল ভার্সন)
-                const text = `${ad.ad_creative_link_title || ''} ${ad.ad_creative_body || ''}`;
-                const sentiment = analyzeSentiment(text);
-                
-                if (impressions > 0 && durationDays > 0) {
-                    totalImpressions += impressions;
-                    totalDuration += durationDays;
-                    totalSentiment += sentiment;
-                    validAds++;
-                }
-                
-                return {
-                    id: ad.id,
-                    pageName: ad.page_name,
-                    title: ad.ad_creative_link_title,
-                    body: ad.ad_creative_body,
-                    impressions: impressions,
-                    durationDays: durationDays,
-                    sentiment: sentiment,
-                    snapshotUrl: ad.ad_snapshot_url,
-                    startTime: ad.ad_delivery_start_time,
-                    performanceScore: impressions / Math.max(durationDays, 1) * (1 + sentiment)
-                };
-            });
-            
-            // স্ট্যাটিস্টিক্স আপডেট করা
-            document.getElementById('totalAds').textContent = validAds;
-            document.getElementById('avgImpressions').textContent = validAds > 0 ? Math.round(totalImpressions / validAds) : 0;
-            document.getElementById('avgDuration').textContent = validAds > 0 ? Math.round(totalDuration / validAds) : 0;
-            document.getElementById('avgSentiment').textContent = validAds > 0 ? (totalSentiment / validAds).toFixed(2) : 0;
-            
-            // টপ Ads দেখানো
-            const topAdsContainer = document.getElementById('topAds');
-            topAdsContainer.innerHTML = '';
-            
-            const sortedAds = [...analyzedAds].sort((a, b) => b.performanceScore - a.performanceScore);
-            const topAds = sortedAds.slice(0, 5);
-            
-            topAds.forEach((ad, index) => {
-                topAdsContainer.innerHTML += `
-                    <div class="ad-card card">
-                        <h3>টপ পারফর্মিং Ad #${index + 1}</h3>
-                        <p><strong>পেজ:</strong> ${ad.pageName || 'Unknown'}</p>
-                        <p><strong>শিরোনাম:</strong> ${ad.title || 'No title'}</p>
-                        <p><strong>বিবরণ:</strong> ${ad.body ? (ad.body.substring(0, 100) + (ad.body.length > 100 ? '...' : '')) : 'No description'}</p>
-                        <p><strong>ইম্প্রেশন:</strong> ${ad.impressions.toLocaleString()}</p>
-                        <p><strong>সময়কাল:</strong> ${ad.durationDays} দিন</p>
-                        <p><strong>সেন্টিমেন্ট স্কোর:</strong> <span class="${ad.sentiment > 0.5 ? 'positive' : (ad.sentiment < 0.3 ? 'negative' : '')}">${ad.sentiment.toFixed(2)}</span></p>
-                        <p><strong>Ad লিংক:</strong> <a href="${ad.snapshotUrl}" class="ad-link" target="_blank">Ad স্ন্যাপশট দেখুন</a></p>
-                    </div>
-                `;
-            });
-            
-            // ইনসাইটস দেখানো
-            const insightsContainer = document.getElementById('insights');
-            insightsContainer.innerHTML = generateInsights(topAds, searchTerm);
-            
-            // পৃষ্ঠার নিচের দিকে স্ক্রল করা
-            window.scrollTo({
-                top: document.getElementById('results').offsetTop,
-                behavior: 'smooth'
-            });
-        }
-        
-        function analyzeSentiment(text) {
-            if (!text) return 0.5;
-            
-            // সরল সেন্টিমেন্ট অ্যানালাইসিস
-            const positiveWords = ['জয়', 'সফল', 'ভাল', 'উত্তম', 'চমৎকার', 'অসাধারণ', 'আশ্চর্য', 'সুন্দর', 'মজাদার', 'আনন্দ'];
-            const negativeWords = ['খারাপ', 'দুঃখ', 'বেদনা', 'বিষাদ', 'অসুস্থ', 'বিরক্ত', 'হতাশ', 'ব্যর্থ', 'সমস্যা', 'কষ্ট'];
-            
-            let positiveCount = 0;
-            let negativeCount = 0;
-            let totalWords = 0;
-            
-            const words = text.toLowerCase().split(/\s+/);
-            totalWords = words.length;
-            
-            words.forEach(word => {
-                if (positiveWords.includes(word)) positiveCount++;
-                if (negativeWords.includes(word)) negativeCount++;
-            });
-            
-            // 0 থেকে 1 এর মধ্যে সেন্টিমেন্ট স্কোর
-            if (totalWords === 0) return 0.5;
-            
-            const score = 0.5 + (positiveCount - negativeCount) / (2 * totalWords);
-            return Math.max(0, Math.min(1, score));
-        }
-        
-        function generateInsights(topAds, searchTerm) {
-            if (topAds.length === 0) {
-                return '<p>কোনো Ads পাওয়া যায়নি বা বিশ্লেষণ করা সম্ভব হয়নি।</p>';
-            }
-            
-            // গড় ইম্প্রেশন এবং সময়কাল
-            const avgImpressions = topAds.reduce((sum, ad) => sum + ad.impressions, 0) / topAds.length;
-            const avgDuration = topAds.reduce((sum, ad) => sum + ad.durationDays, 0) / topAds.length;
-            const avgSentiment = topAds.reduce((sum, ad) => sum + ad.sentiment, 0) / topAds.length;
-            
-            let insightsHTML = `
-                <h3>সারাংশ:</h3>
-                <p>শীর্ষ ${topAds.length}টি Ads গড়ে ${Math.round(avgImpressions).toLocaleString()} ইম্প্রেশন পেয়েছে এবং ${Math.round(avgDuration)} দিন ধরে চলছে।</p>
-                
-                <h3>কেন এই Ads গুলো ভালো পারফর্ম করছে:</h3>
-                <ul>
-            `;
-            
-            if (avgSentiment > 0.6) {
-                insightsHTML += `<li>সবগুলো Ads এ ইতিবাচক ভাষা ব্যবহার করা হয়েছে (গড় সেন্টিমেন্ট: ${avgSentiment.toFixed(2)})</li>`;
-            }
-            
-            if (avgDuration > 30) {
-                insightsHTML += `<li>Ads গুলো দীর্ঘ সময় ধরে চলছে, যা তাদের কার্যকারিতা নির্দেশ করে</li>`;
-            }
-            
-            insightsHTML += `
-                    <li>Ads গুলোতে স্পষ্ট Call-to-Action (CTA) দেওয়া আছে</li>
-                    <li>Target অডিয়েন্স সঠিকভাবে সিলেক্ট করা হয়েছে</li>
-                </ul>
-                
-                <h3>আপনার Ads এর জন্য সুপারিশ:</h3>
-                <ul>
-                    <li>আপনার Ads এ উজ্জ্বল এবং আকর্ষণীয় ইমেজ ব্যবহার করুন</li>
-                    <li>স্পষ্ট CTA যোগ করুন ("এখনই কিনুন", "আজই যোগাযোগ করুন")</li>
-                    <li>ইতিবাচক ও উদ্বুদ্ধকারী ভাষা ব্যবহার করুন</li>
-                    <li>লোকেশন ভিত্তিক টার্গেটিং ব্যবহার করুন</li>
-                    <li>Ads এর performance মনিটর করুন এবং প্রয়োজন অনুযায়ী সামঞ্জস্য করুন</li>
-                </ul>
-            `;
-            
-            return insightsHTML;
-        }
+        // Instructions in console
+        console.log("HOW TO CUSTOMIZE:");
+        console.log("1. Replace '[Client Name]' with actual client name");
+        console.log("2. Replace 'YOUR_MAIN_DRIVE_FOLDER_LINK' with your Google Drive folder link");
+        console.log("3. Update invoice details if needed");
+        console.log("4. Update contact details if needed");
+        console.log("DONE! Save as HTML and share.");
     </script>
 </body>
 </html>
